@@ -30,10 +30,13 @@ JavaScript :
 ## Options
 
 ### Basique
+
 * **width** : Nombre de cellules horizontalement (défaut : 10) ;
 * **height** : Nombre de cellules verticalement (défaut : 10) ;
 * **speed** : Vitesse d'itération (défaut : 10) ;
+
 ### Apparence
+
 * **cellSize** : Taille en pixels d'une cellule - les cellules sont
     carrées (défaut : 10) ;
 * **canvasPadding** : Marge intérieure du canvas en pixels (défaut : 10) ;
@@ -41,13 +44,17 @@ JavaScript :
 * **backgroundColor** : Couleur de fond du canvas (défaut : #333) ;
 * **cellColor** : Couleur de cellule morte (défaut : #555) ;
 * **activeCellColor** : Couleur de cellule vivante (défaut : #fff) ;
+
 ### Événements
+
 * **iteration** : Fonction de callback exécutée à chaque itération, avec
     pour paramètre le nombre d'itérations réalisées depuis
     l'initialisation ;
 * **statusChanged** : Fonction de callback exécutée lors du changement
     d'état (lecture, pause). En paramètre : *playing* ou *stopped* ;
+
 ### Jeu (*coeur du jeu*) :
+
 * **minNeighbours** : Nombre de cases voisines actives minimum pour
     survivre (défaut : 2) ;
 * **maxNeighbours** : Nombre de cases voisites actives maximum pour
