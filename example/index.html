@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <title>Game of Life</title>
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/game-of-life.js"></script>
+
+    <script type="text/javascript">
+
+      var _ = {
+
+        cfg: null,
+        game: null,
+        grid: null,
+
+        initialize: function() {
+          var self = this;
+
+          this.configuration(function() {
+            $(function() {
+              self.dom();
+            });
+          });
+        },
+
+        configuration: function(callback) {
+          var self = this;
+
+          $.getJSON('samples.json', function(data) {
+            self.cfg = data;
+            callback.call(self);
+          });
+        },
+
+        dom: function() {
+          var self = this;
+
+          this.grid = $('#grid');
+
+          $('#toggle').click(function() {
+            self.game.toggle();
+          });
+
+          $('#reset').click(function() {
+            self.update();
+          });
+
+          this.update();
+          $(window).resize(function() {
+            self.update();
+          });
+
+          var n,
+              c,
+              select = $('#objects'),
+              opt;
+
+          for (n in this.cfg.objects) {
+            c = this.cfg.objects[n];
+            opt = $('<option></option>');
+            opt.val(n);
+            opt.html(c.name);
+            select.append(opt);
+          }
+
+          $('#objects-load').click(function() {
+            var n = $('#objects').val();
+                c = self.cfg.objects[n];
+            if (c.hasOwnProperty('iterations')) {
+              $('#max-iterations').val(c.iterations);
+            }
+            if (c.hasOwnProperty('speed')) {
+              $('#speed').val(c.speed);
+            }
+            self.game.loadSchema(c.schema.join('\n'));
+          });
+
+          $('#speed')
+            .val(this.game.getSpeed())
+            .change(function() {
+              var speed = parseFloat($(this).val());
+              if (speed > 0) {
+                self.game.setSpeed(speed);
+              }
+            });
+        },
+
+        update: function() {
+          var self = this;
+
+          if (this.game) {
+            this.game.remove();
+          }
+
+          $('#max-iterations').val(0);
+
+          var w = Math.floor((this.grid.width() - 20) / 11),
+              h = Math.floor((this.grid.height() - 20) / 11);
+
+          this.game = new GameOfLife(this.grid, {
+            width: w,
+            height: h,
+            iteration: function(i) {
+              $('#iterations').val(i);
+
+              if (i > 0 && i === parseInt($('#max-iterations').val(), 10)) {
+                self.game.stop();
+              }
+            },
+            statusChanged: function(status) {
+              var btn = $('#toggle'),
+                  label = btn.data('play');
+              if (status === 'playing') {
+                label = btn.data('pause');
+              }
+              btn.html(label);
+            }
+          });
+        }
+
+      };
+
+      _.initialize();
+
+    </script>
+
+    <style type="text/css">
+
+      body {
+        margin: 0;
+        background: #e0e0e0;
+        cursor: default;
+      }
+
+      body, input, button, select {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+      }
+
+      #grid {
+        position: absolute;
+        left: 20px;
+        right: 200px;
+        top: 20px;
+        bottom: 20px;
+      }
+
+      #controls {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        bottom: 20px;
+        width: 180px;
+      }
+
+      #controls h3 {
+        margin: 10px 0 5px 0;
+        padding: 2px 0 4px 0;
+        color: #333;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      button {
+        display: block;
+        margin: 0 0 10px 0;
+        padding: 4px 7px 5px 7px;
+        background: #333;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #555;
+      }
+
+      button:active {
+        background: #999;
+      }
+
+      #toggle {
+        margin: 0;
+        padding: 10px 0;
+        width: 100%;
+        font-size: 25px;
+      }
+
+      #reset {
+        margin: 10px 0 0 0;
+        padding: 5px 0;
+        width: 100%;
+        font-size: 15px;
+      }
+
+      label {
+        display: block;
+        margin: 0 0 5px 0;
+        padding: 0;
+      }
+
+      input[type="text"], select {
+        margin: 0 0 5px 0;
+        background: #fff;
+        border: 1px solid #666;
+        border-radius: 2px;
+      }
+
+      input[type="text"] {
+        padding: 2px 0 3px 4px;
+        outline: none;
+      }
+
+      input[type="text"]:not([readonly]):focus {
+        border-color: #000;
+      }
+
+      input[type="text"][readonly] {
+        background: transparent;
+      }
+
+      select {
+        padding: 1px 0 2px 0;
+        max-width: 100%;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <div id="grid"></div>
+
+    <div id="controls">
+      <button type="button" id="toggle" data-play="Jouer" data-pause="Pause"></button>
+      <button type="button" id="reset">Réinitialiser</button>
+
+      <h3>Itérations</h3>
+      <input type="text" id="iterations" readonly="readonly" size="12">
+
+      <h3>Objets</h3>
+      <select id="objects"></select>
+      <button type="button" id="objects-load">Charger</button>
+
+      <h3>Options</h3>
+      <label>Stopper après l'itération :</label>
+      <input type="text" id="max-iterations" size="6">
+      <label>Vitesse :</label>
+      <input type="text" id="speed" size="12">
+    </div>
+
+  </body>
+
+</html>
