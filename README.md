@@ -30,27 +30,27 @@ JavaScript :
 ## Options
 
 ### Basique
-    * **width** : Nombre de cellules horizontalement (défaut : 10) ;
-    * **height** : Nombre de cellules verticalement (défaut : 10) ;
-    * **speed** : Vitesse d'itération (défaut : 10) ;
+* **width** : Nombre de cellules horizontalement (défaut : 10) ;
+* **height** : Nombre de cellules verticalement (défaut : 10) ;
+* **speed** : Vitesse d'itération (défaut : 10) ;
 ### Apparence
-    * **cellSize** : Taille en pixels d'une cellule - les cellules sont
-        carrées (défaut : 10) ;
-    * **canvasPadding** : Marge intérieure du canvas en pixels (défaut : 10) ;
-    * **cellsMargin** : Marge en pixels entre chaque cellule (défaut : 1) ;
-    * **backgroundColor** : Couleur de fond du canvas (défaut : #333) ;
-    * **cellColor** : Couleur de cellule morte (défaut : #555) ;
-    * **activeCellColor** : Couleur de cellule vivante (défaut : #fff) ;
+* **cellSize** : Taille en pixels d'une cellule - les cellules sont
+    carrées (défaut : 10) ;
+* **canvasPadding** : Marge intérieure du canvas en pixels (défaut : 10) ;
+* **cellsMargin** : Marge en pixels entre chaque cellule (défaut : 1) ;
+* **backgroundColor** : Couleur de fond du canvas (défaut : #333) ;
+* **cellColor** : Couleur de cellule morte (défaut : #555) ;
+* **activeCellColor** : Couleur de cellule vivante (défaut : #fff) ;
 ### Événements
-    * **iteration** : Fonction de callback exécutée à chaque itération, avec
-        pour paramètre le nombre d'itérations réalisées depuis
-        l'initialisation ;
-    * **statusChanged** : Fonction de callback exécutée lors du changement
-        d'état (lecture, pause). En paramètre : *playing* ou *stopped* ;
+* **iteration** : Fonction de callback exécutée à chaque itération, avec
+    pour paramètre le nombre d'itérations réalisées depuis
+    l'initialisation ;
+* **statusChanged** : Fonction de callback exécutée lors du changement
+    d'état (lecture, pause). En paramètre : *playing* ou *stopped* ;
 ### Jeu (*coeur du jeu*) :
-    * **minNeighbours** : Nombre de cases voisines actives minimum pour
-        survivre (défaut : 2) ;
-    * **maxNeighbours** : Nombre de cases voisites actives maximum pour
-        survivre (défaut : 3) ;
-    * **respawnNeighbours** : Nombre exact de cases à voisines actives
-        pour qu'une cellule morte puisse renaître (défaut : 3).
+* **minNeighbours** : Nombre de cases voisines actives minimum pour
+    survivre (défaut : 2) ;
+* **maxNeighbours** : Nombre de cases voisites actives maximum pour
+    survivre (défaut : 3) ;
+* **respawnNeighbours** : Nombre exact de cases à voisines actives
+    pour qu'une cellule morte puisse renaître (défaut : 3).
