@@ -1,5 +1,5 @@
 
-# Le Jeu de la Vie, de John Horton Conway
+# Le Jeu de la Vie de Conway
 
 Jeu de la Vie interactif avec Canvas.
 
